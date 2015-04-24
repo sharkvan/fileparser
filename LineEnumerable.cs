@@ -4,20 +4,26 @@ All rights reserved.
 See LICENSE.txt for permissions.
 */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace FileParser
 {
-    public class LineEnumerable : IEnumerable<IEnumerable<string>>
+    public class LineEnumerable : IParser
     {
-        readonly StreamReader _reader;
+        StreamReader _reader;
         readonly ParserSettings _settings;
 
         public LineEnumerable(StreamReader reader, ParserSettings settings)
         {
             _reader = reader;
             _settings = settings;
+        }
+
+        ~LineEnumerable()
+        {
+            Dispose();
         }
 
         public IEnumerator<IEnumerable<string>> GetEnumerator()
@@ -28,6 +34,17 @@ namespace FileParser
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void Dispose()
+        {
+            if (_reader == null)
+                return;
+
+            _reader.Dispose();
+            _reader = null;
+
+            GC.SuppressFinalize(this);
         }
     }
 }

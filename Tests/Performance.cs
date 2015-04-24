@@ -25,7 +25,7 @@ namespace FileParser.Tests
                     int expecedRecordsCount = 800001; //One less than the source file because we are zero based.
                     int actualRecordCount = 0;
 
-                    foreach (var item in new LineEnumerable(reader, new ParserSettings(',', '"')))
+                    foreach (var item in new LineEnumerable(reader, ParserSettings.CSV))
                     {
                         ++actualRecordCount;
                         using(IEnumerator<string> fields = item.GetEnumerator())

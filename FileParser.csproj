@@ -50,9 +50,11 @@
     <Compile Include="DelimitedFieldEnumerator.cs" />
     <Compile Include="FieldEnumerable.cs" />
     <Compile Include="FixedWidthFieldEnumerator.cs" />
+    <Compile Include="IParser.cs" />
     <Compile Include="LayoutType.cs" />
     <Compile Include="LineEnumerable.cs" />
     <Compile Include="LineEnumerator.cs" />
+    <Compile Include="ParserBuilder.cs" />
     <Compile Include="ParserSettings.cs" />
     <Compile Include="PatternsAndAlgorithms\Pattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

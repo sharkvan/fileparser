@@ -13,15 +13,21 @@ namespace FileParser
 {
     public class ParserSettings
     {
+        public static ParserSettings CSV = new ParserSettings();
+        public static ParserSettings TSV = new ParserSettings('\t', '"');
+        public static ParserSettings Pipe = new ParserSettings('|', '"');
+
         private readonly LayoutType _layout;
         private readonly char _fieldDelimiter;
         private readonly char _textQualifier;
         private readonly IEnumerable<int> _fieldSizes;
+        private readonly bool _firstRowIsHeaders;
 
         public ParserSettings() : this (',', '"') { }
 
-        public ParserSettings(char fieldDelimiter, char textQualifier)
+        public ParserSettings(char fieldDelimiter, char textQualifier, bool firstRowIsHeaders = false)
         {
+            _firstRowIsHeaders = firstRowIsHeaders;
             _layout = LayoutType.Delimited;
             _fieldDelimiter = fieldDelimiter;
             _textQualifier = textQualifier;
@@ -52,5 +58,7 @@ namespace FileParser
         {
             get { return _fieldSizes; }
         }
+
+        public bool SkipFirstRow { get; set; }
     }
 }

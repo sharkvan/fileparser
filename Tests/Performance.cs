@@ -38,5 +38,29 @@ namespace FileParser.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void GivenAFilePathWhenUsingTheBuilderThen()
+        {
+            using (FileStream stream = new FileStream(".\\MOCK_DATA.csv", FileMode.Open, FileAccess.Read, FileShare.None, 4096))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    int expecedRecordsCount = 800001; //One less than the source file because we are zero based.
+                    int actualRecordCount = 0;
+
+                    foreach (var item in ParserBuilder.Create(reader, ParserSettings.CSV))
+                    {
+                        ++actualRecordCount;
+                        using (IEnumerator<string> fields = item.GetEnumerator())
+                        {
+                            while (fields.MoveNext()) ;
+                        }
+                    }
+
+                    Assert.AreEqual(expecedRecordsCount, actualRecordCount);
+                }
+            }
+        }
     }
 }
